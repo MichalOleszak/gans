@@ -1,0 +1,1 @@
+The `pokemon` [sprites dataset](https://github.com/PokeAPI/sprites) is by [PokeAPI](https://github.com/PokeAPI) and is shared under the [CC0 1.0 Universal](https://github.com/PokeAPI/sprites/blob/master/LICENCE.txt) licence.
