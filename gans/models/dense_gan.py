@@ -8,6 +8,8 @@ by Sharon Zhou et al.
 import torch
 from torch import nn
 
+from gans import utils
+
 
 def get_generator_block(input_dim, output_dim):
     return nn.Sequential(
@@ -33,10 +35,6 @@ class Generator(nn.Module):
         return self.gen(noise)
 
 
-def get_noise(n_samples, z_dim, device='cpu'):
-    return torch.randn(n_samples, z_dim, device=device)
-
-
 def get_discriminator_block(input_dim, output_dim):
     return nn.Sequential(
         nn.Linear(input_dim, output_dim),
@@ -59,7 +57,7 @@ class Discriminator(nn.Module):
 
 
 def get_disc_loss(gen, disc, criterion, real, num_images, z_dim, device):
-    noise = get_noise(num_images, z_dim, device=device)
+    noise = utils.get_noise(num_images, z_dim, device=device)
     fake = gen(noise).detach()
     disc_pred_fake = disc(fake)
     fake_loss = criterion(disc_pred_fake, torch.zeros_like(disc_pred_fake))
@@ -70,7 +68,7 @@ def get_disc_loss(gen, disc, criterion, real, num_images, z_dim, device):
 
 
 def get_gen_loss(gen, disc, criterion, num_images, z_dim, device):
-    noise = get_noise(num_images, z_dim, device=device)
+    noise = utils.get_noise(num_images, z_dim, device=device)
     fake = gen(noise)
     disc_pred = disc(fake)
     gen_loss = criterion(disc_pred, torch.ones_like(disc_pred))

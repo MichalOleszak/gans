@@ -1,5 +1,10 @@
 import matplotlib.pyplot as plt
+import torch
 from torchvision.utils import make_grid
+
+
+def get_noise(n_samples, z_dim, device='cpu'):
+    return torch.randn(n_samples, z_dim, device=device)
 
 
 def show_images(images, nmax=64):
